@@ -79,6 +79,7 @@ class Plugin {
 			return;
 		}
 
+		require_once LANDING_PAGE_PLUGIN_DIR . '/includes/frontend/class-social-links.php';
 		require_once LANDING_PAGE_PLUGIN_DIR . '/includes/frontend/class-template-override.php';
 	}
 
