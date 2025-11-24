@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Registers the ACF options page that becomes available after selection.
  *
@@ -295,6 +295,32 @@ class Acf_Options_Page {
 						'placeholder'       => '',
 						'prepend'           => '',
 						'append'            => '',
+					),
+					array(
+						'key' => 'field_6924d8f04b26c',
+						'label' => __( 'Image', 'impeka-landing-page' ),
+						'name' => 'habits_image',
+						'aria-label' => '',
+						'type' => 'image',
+						'instructions' => '',
+						'required' => 0,
+						'conditional_logic' => 0,
+						'wrapper' => array(
+							'width' => '',
+							'class' => '',
+							'id' => '',
+						),
+						'return_format' => 'array',
+						'library' => 'all',
+						'min_width' => '',
+						'min_height' => '',
+						'min_size' => '',
+						'max_width' => '',
+						'max_height' => '',
+						'max_size' => '',
+						'mime_types' => 'jpg,png',
+						'allow_in_bindings' => 0,
+						'preview_size' => 'medium',
 					),
 					array(
 						'key'               => 'field_6924c65d953b9',
@@ -709,3 +735,8 @@ class Acf_Options_Page {
 		);
 	}
 }
+
+
+
+
+
