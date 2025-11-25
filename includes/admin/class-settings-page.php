@@ -26,6 +26,8 @@ class Settings_Page {
 	public function __construct() {
 		\add_action( 'admin_menu', [ $this, 'register_settings_page' ] );
 		\add_action( 'admin_init', [ $this, 'register_settings' ] );
+		\add_filter( 'display_post_states', [ $this, 'add_landing_page_state' ], 10, 2 );
+		\add_filter( 'page_row_actions', [ $this, 'add_landing_page_row_action' ], 10, 2 );
 	}
 
 	/**
@@ -124,5 +126,64 @@ class Settings_Page {
 			</form>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Add a post state label to the selected landing page in the Pages list.
+	 *
+	 * @param array    $states Existing states.
+	 * @param \WP_Post $post   Current post object.
+	 *
+	 * @return array
+	 */
+	public function add_landing_page_state( array $states, \WP_Post $post ): array {
+		$landing_page_id = (int) \get_option( self::OPTION_NAME, 0 );
+
+		if ( 0 === $landing_page_id ) {
+			return $states;
+		}
+
+		if ( 'page' !== $post->post_type ) {
+			return $states;
+		}
+
+		if ( (int) $post->ID !== $landing_page_id ) {
+			return $states;
+		}
+
+		$states['landing_page'] = \__( 'Landing Page', 'landing-page' );
+
+		return $states;
+	}
+
+	/**
+	 * Add a quick row action to jump to the landing page option content.
+	 *
+	 * @param array    $actions Existing row actions.
+	 * @param \WP_Post $post    Current post object.
+	 *
+	 * @return array
+	 */
+	public function add_landing_page_row_action( array $actions, \WP_Post $post ): array {
+		$landing_page_id = (int) \get_option( self::OPTION_NAME, 0 );
+
+		if ( 0 === $landing_page_id || (int) $post->ID !== $landing_page_id || ! \current_user_can( 'manage_options' ) ) {
+			return $actions;
+		}
+
+		$url = \add_query_arg(
+			[
+				'page' => 'landing-page-acf-settings',
+			],
+			\admin_url( 'edit.php?post_type=page' )
+		);
+
+		$actions['edit_landing_content'] = sprintf(
+			'<a href="%s">%s</a>',
+			\esc_url( $url ),
+			\esc_html__( 'Edit Landing Page Content', 'landing-page' )
+		);
+
+		return $actions;
 	}
 }

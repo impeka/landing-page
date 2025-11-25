@@ -1,13 +1,13 @@
 <?php
 /**
- * Default Landing Page template provided by the plugin.
+ * Default Landing Page template.
  *
  * @package Landing_Page
  */
 
 $options_post_id = 'landing_page_options';
 
-$cca_logo        = function_exists( 'get_field' ) ? get_field( 'cca_logo', $options_post_id ) : null;
+$video           = function_exists( 'get_field' ) ? get_field( 'background_video', $options_post_id ) : null;
 $move_it_logo    = function_exists( 'get_field' ) ? get_field( 'move_it_logo', $options_post_id ) : null;
 $move_it_tagline = function_exists( 'get_field' ) ? get_field( 'move_it_tagline', $options_post_id ) : '';
 $lead            = function_exists( 'get_field' ) ? get_field( 'lead', $options_post_id ) : '';
@@ -26,8 +26,21 @@ $downloads_lead     = function_exists( 'get_field' ) ? get_field( 'downloads_lea
 $downloads          = function_exists( 'get_field' ) ? get_field( 'downloads', $options_post_id ) : [];
 
 $habits_title    = function_exists( 'get_field' ) ? get_field( 'title', $options_post_id ) : '';
+$habits_image    = function_exists( 'get_field' ) ? get_field( 'habits_image', $options_post_id ) : null;
 $habits_list     = function_exists( 'get_field' ) ? get_field( 'habits_list', $options_post_id ) : [];
 $habits_footnote = function_exists( 'get_field' ) ? get_field( 'habits_footnote', $options_post_id ) : '';
+
+$videos_title = function_exists( 'get_field' ) ? get_field( 'videos_title', $options_post_id ) : '';
+$videos       = function_exists( 'get_field' ) ? get_field( 'videos', $options_post_id ) : [];
+
+$partners_title   = function_exists( 'get_field' ) ? get_field( 'partners_title', $options_post_id ) : '';
+$partners_content = function_exists( 'get_field' ) ? get_field( 'partners_content', $options_post_id ) : '';
+$partners_image   = function_exists( 'get_field' ) ? get_field( 'partners_image', $options_post_id ) : null;
+
+$where_title    = function_exists( 'get_field' ) ? get_field( 'where_title', $options_post_id ) : '';
+$where_buckets  = function_exists( 'get_field' ) ? get_field( 'buckets', $options_post_id ) : [];
+$where_subtitle = function_exists( 'get_field' ) ? get_field( 'where_subtitle', $options_post_id ) : '';
+$where_link     = function_exists( 'get_field' ) ? get_field( 'where_link', $options_post_id ) : null;
 
 require LANDING_PAGE_PLUGIN_DIR . '/templates/partials/header-landing.php';
 ?>
@@ -36,17 +49,20 @@ require LANDING_PAGE_PLUGIN_DIR . '/templates/partials/header-landing.php';
 	<section class="hero">
 		<div class="hero__inner">
 			<div class="hero__logos">
-				<?php if ( $cca_logo ) : ?>
-					<img class="hero__logo hero__logo--cca" src="<?php echo esc_url( $cca_logo['url'] ); ?>" alt="<?php echo esc_attr( $cca_logo['alt'] ?? '' ); ?>" />
+				<?php if( $cca_logo = get_field( 'cca_logo', $options_post_id ) ): ?>
+					<div class="cca-logo-row">
+						<a class="landing-page-header__brand" href="<?php echo esc_url( home_url( '/' ) ); ?>">
+							<img src="<?php echo $cca_logo['url']; ?>" alt="<?php bloginfo( 'name' ); ?>" />
+						</a>
+					</div>
 				<?php endif; ?>
-
 				<?php if ( $move_it_logo ) : ?>
 					<img class="hero__logo hero__logo--move-it" src="<?php echo esc_url( $move_it_logo['url'] ); ?>" alt="<?php echo esc_attr( $move_it_logo['alt'] ?? '' ); ?>" />
 				<?php endif; ?>
 			</div>
 
 			<?php if ( $move_it_tagline ) : ?>
-				<p class="hero__eyebrow"><?php echo esc_html( $move_it_tagline ); ?></p>
+				<p class="hero__eyebrow"><span class="hero__eyebrow__inner"><?php echo esc_html( $move_it_tagline ); ?></span></p>
 			<?php endif; ?>
 
 			<?php if ( $lead ) : ?>
@@ -56,49 +72,72 @@ require LANDING_PAGE_PLUGIN_DIR . '/templates/partials/header-landing.php';
 			<?php endif; ?>
 
 			<?php if ( $header_button ) : ?>
-				<a class="button hero__cta" href="<?php echo esc_url( $header_button['url'] ); ?>" target="<?php echo esc_attr( $header_button['target'] ?? '' ); ?>">
-					<?php echo esc_html( $header_button['title'] ); ?>
-				</a>
+				<div class="hero__cta">
+					<a class="button" href="<?php echo esc_url( $header_button['url'] ); ?>" target="<?php echo esc_attr( $header_button['target'] ?? '' ); ?>">
+						<?php echo esc_html( $header_button['title'] ); ?>
+					</a>
+				</div>
 			<?php endif; ?>
 		</div>
+		<?php if( ! empty( $video ) ): ?>
+			<div class="hero__background-video">
+				<video class="video-frame" autoplay loop>
+					<source src="<?php echo $video['url']; ?>" type="video/mp4" />
+				</video>
+			</div>
+		<?php endif; ?>
 	</section>
 
 	<section class="benefits" id="benefits">
 		<div class="benefits__inner">
 			<header class="section-heading">
-				<h2 class="section-heading__title"><?php esc_html_e( 'Small movement Habits Have Big Benefits', 'landing-page' ); ?></h2>
+				<h2 class="section-heading__title">
+					<?php echo esc_html( $habits_title ?: __( 'Small movement habits have big benefits', 'landing-page' ) ); ?>
+				</h2>
 			</header>
-			<div class="benefits__list">
-				<article class="benefit">
-					<div class="benefit__number">01</div>
-					<h3 class="benefit__title"><?php esc_html_e( 'Mental Wellbeing', 'landing-page' ); ?></h3>
-					<p class="benefit__copy"><?php esc_html_e( 'Movement improves mood, reduces stress, and boosts energy.', 'landing-page' ); ?></p>
-				</article>
-				<article class="benefit">
-					<div class="benefit__number">02</div>
-					<h3 class="benefit__title"><?php esc_html_e( 'Physical Health', 'landing-page' ); ?></h3>
-					<p class="benefit__copy"><?php esc_html_e( 'Regular motion supports your joints, spine, and overall function.', 'landing-page' ); ?></p>
-				</article>
-				<article class="benefit">
-					<div class="benefit__number">03</div>
-					<h3 class="benefit__title"><?php esc_html_e( 'Healthy Aging', 'landing-page' ); ?></h3>
-					<p class="benefit__copy"><?php esc_html_e( 'Staying active helps preserve independence and quality of life.', 'landing-page' ); ?></p>
-				</article>
+			<div class="benefits__body">
+				<?php if ( ! empty( $habits_image['url'] ) ) : ?>
+					<div class="benefits__media">
+						<img src="<?php echo esc_url( $habits_image['url'] ); ?>" alt="<?php echo esc_attr( $habits_image['alt'] ?? '' ); ?>" />
+					</div>
+				<?php endif; ?>
+
+				<?php if ( ! empty( $habits_list ) ) : ?>
+					<div class="benefits__list">
+						<?php foreach ( $habits_list as $index => $habit ) : ?>
+							<article class="benefit">
+								<div class="benefit__number">
+									<?php echo esc_html( str_pad( (string) ( $index + 1 ), 2, '0', STR_PAD_LEFT ) ); ?>
+								</div>
+								<div class="benefit__content">
+									<h3 class="benefit__title"><?php echo esc_html( $habit['habit'] ?? '' ); ?></h3>
+									<?php if( ! empty( $habit['description'] ) ): ?>
+										<div class="benefit__description">
+											<?php echo $habit['description']; ?>
+										</div>
+									<?php endif; ?>
+								</div>
+							</article>
+						<?php endforeach; ?>
+					</div>
+				<?php endif; ?>
 			</div>
-			<div class="benefits__note">
-				<p><?php esc_html_e( 'Canadian chiropractors know movement isn\'t just about fitness. It’s about how you live better every day. From getting up in the morning to moving at work or play, small, simple movements that become a habit lead to healthy long-lasting benefits.', 'landing-page' ); ?></p>
-			</div>
+
+			<?php if ( ! empty( $habits_footnote ) ) : ?>
+				<div class="benefits__note">
+					<?php echo wp_kses_post( $habits_footnote ); ?>
+				</div>
+			<?php endif; ?>
 		</div>
 	</section>
 
 	<section class="downloads" id="downloads">
 		<div class="downloads__inner">
 			<header class="section-heading section-heading--center">
-				<p class="section-heading__eyebrow"><?php esc_html_e( 'Free Downloads', 'landing-page' ); ?></p>
-				<h2 class="section-heading__title"><?php echo esc_html( $downloads_title ?? '' ); ?></h2>
 				<?php if ( ! empty( $downloads_subtitle ) ) : ?>
-					<p class="section-heading__subtitle"><?php echo esc_html( $downloads_subtitle ); ?></p>
+					<p class="section-heading__eyebrow"><?php echo esc_html( $downloads_subtitle ); ?></p>
 				<?php endif; ?>
+				<h2 class="section-heading__title"><?php echo esc_html( $downloads_title ?? '' ); ?></h2>
 				<?php if ( ! empty( $downloads_lead ) ) : ?>
 					<div class="section-heading__lead"><?php echo wp_kses_post( $downloads_lead ); ?></div>
 				<?php endif; ?>
@@ -115,7 +154,7 @@ require LANDING_PAGE_PLUGIN_DIR . '/templates/partials/header-landing.php';
 								<h3 class="download-card__title"><?php echo esc_html( $download['title'] ?? '' ); ?></h3>
 								<?php if ( ! empty( $download['download_file']['url'] ) ) : ?>
 									<a class="button button--small download-card__cta" href="<?php echo esc_url( $download['download_file']['url'] ); ?>">
-										<?php esc_html_e( 'Download', 'landing-page' ); ?>
+										<?php echo esc_html( $download['download_file']['title'] ?? __( 'Download', 'landing-page' ) ); ?>
 									</a>
 								<?php endif; ?>
 							</div>
@@ -129,40 +168,95 @@ require LANDING_PAGE_PLUGIN_DIR . '/templates/partials/header-landing.php';
 	<section class="partners" id="partners">
 		<div class="partners__inner">
 			<header class="section-heading">
-				<h2 class="section-heading__title"><?php esc_html_e( 'Trusted Partners in Healthy Living', 'landing-page' ); ?></h2>
+				<h2 class="section-heading__title">
+					<?php echo esc_html( $partners_title ?: __( 'Trusted Partners in Healthy Living', 'landing-page' ) ); ?>
+				</h2>
 			</header>
 			<div class="partners__content">
-				<p><?php esc_html_e( 'Canada’s 9,000 chiropractors support people of all ages in maintaining mobility, resilience, and enhancing quality of life. As their role goes beyond treatment, chiropractors are your partners in your overall proactive health.', 'landing-page' ); ?></p>
+				<div class="partners__copy">
+					<?php echo wp_kses_post( $partners_content ); ?>
+				</div>
+				<?php if ( ! empty( $partners_image['url'] ) ) : ?>
+					<div class="partners__media">
+						<img src="<?php echo esc_url( $partners_image['url'] ); ?>" alt="<?php echo esc_attr( $partners_image['alt'] ?? '' ); ?>" />
+					</div>
+				<?php endif; ?>
 			</div>
 		</div>
 	</section>
 
-	<section class="help" id="help">
-		<div class="help__inner">
+	<section class="videos" id="videos">
+		<div class="videos__inner">
 			<header class="section-heading section-heading--center">
 				<h2 class="section-heading__title">
-					<?php echo esc_html( $habits_title ?: __( 'Where Chiropractors Help', 'landing-page' ) ); ?>
+					<?php echo esc_html( $videos_title ?: __( 'Videos', 'landing-page' ) ); ?>
 				</h2>
 			</header>
 
-			<div class="help__grid">
-				<?php if ( ! empty( $habits_list ) ) : ?>
-					<?php foreach ( $habits_list as $habit ) : ?>
-						<article class="help-card">
-							<h3 class="help-card__title"><?php echo esc_html( $habit['habit'] ?? '' ); ?></h3>
-							<p class="help-card__copy"><?php echo esc_html( $habit['habit'] ?? '' ); ?></p>
+			<?php if ( ! empty( $videos ) ) : ?>
+				<div class="videos__grid">
+					<?php foreach ( $videos as $video ) : ?>
+						<?php
+						$thumb = $video['thumbnail'] ?? null;
+						$url   = $video['video_url'] ?? '';
+						?>
+						<article class="video-card">
+							<?php if ( ! empty( $thumb['url'] ) ) : ?>
+								<a class="video-card__thumb" href="<?php echo esc_url( $url ); ?>" target="_blank" rel="noopener noreferrer">
+									<img src="<?php echo esc_url( $thumb['url'] ); ?>" alt="<?php echo esc_attr( $thumb['alt'] ?? '' ); ?>" />
+									<span class="video-card__play" aria-hidden="true">▶</span>
+									<span class="screen-reader-text"><?php echo esc_html( $video['title'] ?? '' ); ?></span>
+								</a>
+							<?php elseif ( $url ) : ?>
+								<a class="video-card__thumb" href="<?php echo esc_url( $url ); ?>" target="_blank" rel="noopener noreferrer">
+									<span class="video-card__play" aria-hidden="true">▶</span>
+									<span class="screen-reader-text"><?php echo esc_html( $video['title'] ?? '' ); ?></span>
+								</a>
+							<?php endif; ?>
+							<?php if ( ! empty( $video['title'] ) ) : ?>
+								<h3 class="video-card__title"><?php echo esc_html( $video['title'] ); ?></h3>
+							<?php endif; ?>
+						</article>
+					<?php endforeach; ?>
+				</div>
+			<?php endif; ?>
+		</div>
+	</section>
+
+	<section class="where-help" id="help">
+		<div class="where-help__inner">
+			<header class="section-heading section-heading--center">
+				<h2 class="section-heading__title">
+					<?php echo esc_html( $where_title ?: __( 'Where Chiropractors Help', 'landing-page' ) ); ?>
+				</h2>
+			</header>
+
+			<div class="where-help__grid">
+				<?php if ( ! empty( $where_buckets ) ) : ?>
+					<?php foreach ( $where_buckets as $bucket ) : ?>
+						<article class="where-card">
+							<?php if ( ! empty( $bucket['title'] ) ) : ?>
+								<h3 class="where-card__title"><?php echo esc_html( $bucket['title'] ); ?></h3>
+							<?php endif; ?>
+							<?php if ( ! empty( $bucket['content'] ) ) : ?>
+								<div class="where-card__copy">
+									<?php echo wp_kses_post( $bucket['content'] ); ?>
+								</div>
+							<?php endif; ?>
 						</article>
 					<?php endforeach; ?>
 				<?php endif; ?>
 			</div>
 
-			<?php if ( ! empty( $habits_footnote ) ) : ?>
-				<div class="help__note">
-					<?php echo wp_kses_post( $habits_footnote ); ?>
-				</div>
+			<?php if ( ! empty( $where_subtitle ) ) : ?>
+				<p class="where-help__subtitle"><?php echo esc_html( $where_subtitle ); ?></p>
 			<?php endif; ?>
 
-			<a class="button help__cta" href="#find-a-chiro"><?php esc_html_e( 'Find a Chiropractor', 'landing-page' ); ?></a>
+			<?php if ( ! empty( $where_link['url'] ) ) : ?>
+				<a class="button where-help__cta" href="<?php echo esc_url( $where_link['url'] ); ?>" target="<?php echo esc_attr( $where_link['target'] ?? '' ); ?>">
+					<?php echo esc_html( $where_link['title'] ?? '' ); ?>
+				</a>
+			<?php endif; ?>
 		</div>
 	</section>
 </main>

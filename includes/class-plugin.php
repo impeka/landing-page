@@ -80,6 +80,7 @@ class Plugin {
 		}
 
 		require_once LANDING_PAGE_PLUGIN_DIR . '/includes/frontend/class-social-links.php';
+		require_once LANDING_PAGE_PLUGIN_DIR . '/includes/frontend/class-style-stripper.php';
 		require_once LANDING_PAGE_PLUGIN_DIR . '/includes/frontend/class-template-override.php';
 	}
 
@@ -96,6 +97,7 @@ class Plugin {
 	 */
 	private function boot_frontend(): void {
 		$this->components['template_override'] = new Template_Override();
+		$this->components['style_stripper']    = new \Landing_Page\Front\Style_Stripper();
 	}
 
 	/**

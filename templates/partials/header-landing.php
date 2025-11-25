@@ -11,28 +11,10 @@
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=MuseoModerno:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 	<?php wp_head(); ?>
 </head>
-
 <body <?php body_class( 'landing-page-body' ); ?>>
 <?php wp_body_open(); ?>
-
-<header class="landing-page-header">
-	<div class="landing-page-header__inner">
-		<a class="landing-page-header__brand" href="<?php echo esc_url( home_url( '/' ) ); ?>">
-			<?php bloginfo( 'name' ); ?>
-		</a>
-		<?php if ( has_nav_menu( 'landing-page' ) ) : ?>
-			<nav class="landing-page-header__nav" aria-label="<?php esc_attr_e( 'Landing Page menu', 'landing-page' ); ?>">
-				<?php
-				wp_nav_menu(
-					[
-						'theme_location' => 'landing-page',
-						'fallback_cb'    => false,
-					]
-				);
-				?>
-			</nav>
-		<?php endif; ?>
-	</div>
-</header>

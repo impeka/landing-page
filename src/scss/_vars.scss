@@ -1,0 +1,96 @@
+:root {
+/* Colors: */
+--unnamed-color-464851: #464851;
+--unnamed-color-daffca: #DAFFCA;
+--unnamed-color-0097b2: #0097B2;
+--unnamed-color-707070: #707070;
+--unnamed-color-000000: #000000;
+--unnamed-color-454851: #454851;
+--unnamed-color-007392: #007392;
+--unnamed-color-6cc24a00: #6CC24A00;
+--unnamed-color-febe10: #FEBE10;
+--unnamed-color-ee3440: #EE3440;
+--unnamed-color-6cc24a: #6CC24A;
+
+/* Font/text values */
+--unnamed-font-family-museo: MuseoModerno;
+--unnamed-font-family-poppins: Poppins;
+--unnamed-font-style-normal: normal;
+--unnamed-font-weight-300: 300px;
+--unnamed-font-weight-normal: normal;
+--unnamed-font-size-21: 21px;
+--unnamed-font-size-26: 26px;
+--unnamed-font-size-32: 32px;
+--unnamed-font-size-58: 58px;
+--unnamed-character-spacing-0: 0px;
+--unnamed-line-spacing-28: 28px;
+--unnamed-line-spacing-32: 32px;
+--unnamed-line-spacing-38: 38px;
+--unnamed-line-spacing-48: 48px;
+--unnamed-line-spacing-60: 60px;
+}
+
+/* Character Styles */
+.footer-listing-museo-—-21pt {
+font-family: var(--unnamed-font-family-museo);
+font-style: var(--unnamed-font-style-normal);
+font-weight: var(--unnamed-font-weight-normal);
+font-size: var(--unnamed-font-size-21);
+line-height: var(--unnamed-line-spacing-48);
+letter-spacing: var(--unnamed-character-spacing-0);
+color: var(--unnamed-color-464851);
+}
+.h1-museo-—-58pt {
+font-family: var(--unnamed-font-family-museo);
+font-style: var(--unnamed-font-style-normal);
+font-weight: var(--unnamed-font-weight-normal);
+font-size: var(--unnamed-font-size-58);
+line-height: var(--unnamed-line-spacing-60);
+letter-spacing: var(--unnamed-character-spacing-0);
+color: var(--unnamed-color-007392);
+}
+.h2-museo-—-32pt {
+font-family: var(--unnamed-font-family-museo);
+font-style: var(--unnamed-font-style-normal);
+font-weight: var(--unnamed-font-weight-normal);
+font-size: var(--unnamed-font-size-32);
+line-height: var(--unnamed-line-spacing-38);
+letter-spacing: var(--unnamed-character-spacing-0);
+color: var(--unnamed-color-007392);
+}
+.h3-museo-—-26pt {
+font-family: var(--unnamed-font-family-museo);
+font-style: var(--unnamed-font-style-normal);
+font-weight: var(--unnamed-font-weight-normal);
+font-size: var(--unnamed-font-size-26);
+line-height: var(--unnamed-line-spacing-32);
+letter-spacing: var(--unnamed-character-spacing-0);
+color: var(--unnamed-color-464851);
+}
+.h4-museo-—-21pt {
+font-family: var(--unnamed-font-family-museo);
+font-style: var(--unnamed-font-style-normal);
+font-weight: var(--unnamed-font-weight-normal);
+font-size: var(--unnamed-font-size-21);
+line-height: var(--unnamed-line-spacing-28);
+letter-spacing: var(--unnamed-character-spacing-0);
+color: var(--unnamed-color-464851);
+}
+.numerals-poppins-—-58pt {
+font-family: var(--unnamed-font-family-poppins);
+font-style: var(--unnamed-font-style-normal);
+font-weight: var(--unnamed-font-weight-300);
+font-size: var(--unnamed-font-size-58);
+line-height: var(--unnamed-line-spacing-28);
+letter-spacing: var(--unnamed-character-spacing-0);
+color: var(--unnamed-color-6cc24a);
+}
+.body-museo-—-18pt {
+font-family: var(--unnamed-font-family-museo);
+font-style: var(--unnamed-font-style-normal);
+font-weight: var(--unnamed-font-weight-normal);
+font-size: var(--unnamed-font-size-26);
+line-height: var(--unnamed-line-spacing-28);
+letter-spacing: var(--unnamed-character-spacing-0);
+color: var(--unnamed-color-464851);
+}

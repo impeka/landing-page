@@ -17,6 +17,7 @@ class Template_Override {
 	public function __construct() {
 		\add_action( 'after_setup_theme', [ $this, 'register_nav_location' ] );
 		\add_filter( 'template_include', [ $this, 'maybe_use_plugin_template' ] );
+		\add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_assets' ] );
 	}
 
 	/**
@@ -52,5 +53,22 @@ class Template_Override {
 		}
 
 		return LANDING_PAGE_TEMPLATE_FILE;
+	}
+
+	/**
+	 * Enqueue plugin front-end assets.
+	 */
+	public function enqueue_assets(): void {
+		$css_path = LANDING_PAGE_PLUGIN_DIR . '/assets/css/landing-page.css';
+		$css_url  = LANDING_PAGE_PLUGIN_DIR . '/assets/css/landing-page.css';
+
+		if ( \file_exists( $css_path ) ) {
+			\wp_enqueue_style(
+				'landing-page-styles',
+				plugins_url( 'assets/css/landing-page.css', LANDING_PAGE_PLUGIN_FILE ),
+				[],
+				(string) \filemtime( $css_path )
+			);
+		}
 	}
 }
