@@ -56,28 +56,32 @@ require LANDING_PAGE_PLUGIN_DIR . '/templates/partials/header-landing.php';
 						</a>
 					</div>
 				<?php endif; ?>
-				<?php if ( $move_it_logo ) : ?>
-					<img class="hero__logo hero__logo--move-it" src="<?php echo esc_url( $move_it_logo['url'] ); ?>" alt="<?php echo esc_attr( $move_it_logo['alt'] ?? '' ); ?>" />
-				<?php endif; ?>
 			</div>
+			<div class="hero__content">
+				<div class="inner">
+					<?php if ( $move_it_logo ) : ?>
+						<img class="hero__logo hero__logo--move-it" src="<?php echo esc_url( $move_it_logo['url'] ); ?>" alt="<?php echo esc_attr( $move_it_logo['alt'] ?? '' ); ?>" />
+					<?php endif; ?>
 
-			<?php if ( $move_it_tagline ) : ?>
-				<p class="hero__eyebrow"><span class="hero__eyebrow__inner"><?php echo esc_html( $move_it_tagline ); ?></span></p>
-			<?php endif; ?>
+					<?php if ( $move_it_tagline ) : ?>
+						<p class="hero__eyebrow"><span class="hero__eyebrow__inner"><?php echo esc_html( $move_it_tagline ); ?></span></p>
+					<?php endif; ?>
 
-			<?php if ( $lead ) : ?>
-				<div class="hero__lead">
-					<?php echo wp_kses_post( $lead ); ?>
+					<?php if ( $lead ) : ?>
+						<div class="hero__lead">
+							<?php echo wp_kses_post( $lead ); ?>
+						</div>
+					<?php endif; ?>
+
+					<?php if ( $header_button ) : ?>
+						<div class="hero__cta">
+							<a class="button" href="<?php echo esc_url( $header_button['url'] ); ?>" target="<?php echo esc_attr( $header_button['target'] ?? '' ); ?>">
+								<?php echo esc_html( $header_button['title'] ); ?>
+							</a>
+						</div>
+					<?php endif; ?>
 				</div>
-			<?php endif; ?>
-
-			<?php if ( $header_button ) : ?>
-				<div class="hero__cta">
-					<a class="button" href="<?php echo esc_url( $header_button['url'] ); ?>" target="<?php echo esc_attr( $header_button['target'] ?? '' ); ?>">
-						<?php echo esc_html( $header_button['title'] ); ?>
-					</a>
-				</div>
-			<?php endif; ?>
+			</div>
 		</div>
 		<?php if( ! empty( $video ) ): ?>
 			<div class="hero__background-video">
@@ -167,21 +171,63 @@ require LANDING_PAGE_PLUGIN_DIR . '/templates/partials/header-landing.php';
 
 	<section class="partners" id="partners">
 		<div class="partners__inner">
-			<header class="section-heading">
-				<h2 class="section-heading__title">
-					<?php echo esc_html( $partners_title ?: __( 'Trusted Partners in Healthy Living', 'landing-page' ) ); ?>
-				</h2>
-			</header>
 			<div class="partners__content">
+				<header class="section-heading">
+					<h2 class="section-heading__title">
+						<?php echo esc_html( $partners_title ?: __( 'Trusted Partners in Healthy Living', 'landing-page' ) ); ?>
+					</h2>
+				</header>
 				<div class="partners__copy">
 					<?php echo wp_kses_post( $partners_content ); ?>
 				</div>
-				<?php if ( ! empty( $partners_image['url'] ) ) : ?>
-					<div class="partners__media">
-						<img src="<?php echo esc_url( $partners_image['url'] ); ?>" alt="<?php echo esc_attr( $partners_image['alt'] ?? '' ); ?>" />
-					</div>
+			</div>
+			<?php if ( ! empty( $partners_image['url'] ) ) : ?>
+				<div class="partners__media">
+					<img src="<?php echo esc_url( $partners_image['url'] ); ?>" alt="<?php echo esc_attr( $partners_image['alt'] ?? '' ); ?>" />
+				</div>
+			<?php endif; ?>
+		</div>
+	</section>
+
+	<section class="where-help" id="help">
+		<?php if ( $move_it_logo ) : ?>
+			<img class="floating__logo--move-it" src="<?php echo esc_url( $move_it_logo['url'] ); ?>" alt="<?php echo esc_attr( $move_it_logo['alt'] ?? '' ); ?>" />
+		<?php endif; ?>
+		<div class="where-help__inner">
+			<header class="section-heading section-heading--center">
+				<h2 class="section-heading__title">
+					<?php echo esc_html( $where_title ?: __( 'Where Chiropractors Help', 'landing-page' ) ); ?>
+				</h2>
+			</header>
+
+			<div class="where-help__grid">
+				<?php if ( ! empty( $where_buckets ) ) : ?>
+					<?php foreach ( $where_buckets as $bucket ) : ?>
+						<article class="where-card">
+							<?php if ( ! empty( $bucket['title'] ) ) : ?>
+								<h3 class="where-card__title"><?php echo esc_html( $bucket['title'] ); ?></h3>
+							<?php endif; ?>
+							<?php if ( ! empty( $bucket['content'] ) ) : ?>
+								<div class="where-card__copy">
+									<?php echo wp_kses_post( $bucket['content'] ); ?>
+								</div>
+							<?php endif; ?>
+						</article>
+					<?php endforeach; ?>
 				<?php endif; ?>
 			</div>
+
+			<?php if ( ! empty( $where_subtitle ) ) : ?>
+				<h4 class="where-help__subtitle"><?php echo esc_html( $where_subtitle ); ?></h4>
+			<?php endif; ?>
+
+			<?php if ( ! empty( $where_link['url'] ) ) : ?>
+				<div class="where-help__cta">
+					<a class="button" href="<?php echo esc_url( $where_link['url'] ); ?>" target="<?php echo esc_attr( $where_link['target'] ?? '' ); ?>">
+						<?php echo esc_html( $where_link['title'] ?? '' ); ?>
+					</a>
+				</div>
+			<?php endif; ?>
 		</div>
 	</section>
 
@@ -219,43 +265,6 @@ require LANDING_PAGE_PLUGIN_DIR . '/templates/partials/header-landing.php';
 						</article>
 					<?php endforeach; ?>
 				</div>
-			<?php endif; ?>
-		</div>
-	</section>
-
-	<section class="where-help" id="help">
-		<div class="where-help__inner">
-			<header class="section-heading section-heading--center">
-				<h2 class="section-heading__title">
-					<?php echo esc_html( $where_title ?: __( 'Where Chiropractors Help', 'landing-page' ) ); ?>
-				</h2>
-			</header>
-
-			<div class="where-help__grid">
-				<?php if ( ! empty( $where_buckets ) ) : ?>
-					<?php foreach ( $where_buckets as $bucket ) : ?>
-						<article class="where-card">
-							<?php if ( ! empty( $bucket['title'] ) ) : ?>
-								<h3 class="where-card__title"><?php echo esc_html( $bucket['title'] ); ?></h3>
-							<?php endif; ?>
-							<?php if ( ! empty( $bucket['content'] ) ) : ?>
-								<div class="where-card__copy">
-									<?php echo wp_kses_post( $bucket['content'] ); ?>
-								</div>
-							<?php endif; ?>
-						</article>
-					<?php endforeach; ?>
-				<?php endif; ?>
-			</div>
-
-			<?php if ( ! empty( $where_subtitle ) ) : ?>
-				<p class="where-help__subtitle"><?php echo esc_html( $where_subtitle ); ?></p>
-			<?php endif; ?>
-
-			<?php if ( ! empty( $where_link['url'] ) ) : ?>
-				<a class="button where-help__cta" href="<?php echo esc_url( $where_link['url'] ); ?>" target="<?php echo esc_attr( $where_link['target'] ?? '' ); ?>">
-					<?php echo esc_html( $where_link['title'] ?? '' ); ?>
-				</a>
 			<?php endif; ?>
 		</div>
 	</section>
