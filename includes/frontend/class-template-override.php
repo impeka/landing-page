@@ -54,7 +54,7 @@ class Template_Override {
 		if ( \file_exists( $css_path ) ) {
 			\wp_enqueue_style(
 				'landing-page-styles',
-				plugins_url( 'assets/css/landing-page.css', LANDING_PAGE_PLUGIN_FILE ),
+				plugins_url( 'assets/css/landing-page.css', LANDING_PAGE_PLUGIN_FILE.'.'.time() ),
 				[],
 				LANDING_PAGE_PLUGIN_VERSION
 			);
