@@ -16,7 +16,6 @@ $header_button   = function_exists( 'get_field' ) ? get_field( 'header_button', 
 $footer_logo      = function_exists( 'get_field' ) ? get_field( 'acc_logo_footer', $options_post_id ) : null;
 $footer_subtitle  = function_exists( 'get_field' ) ? get_field( 'footer_subtitle', $options_post_id ) : '';
 $footer_links     = function_exists( 'get_field' ) ? get_field( 'footer_links', $options_post_id ) : [];
-$telephone_link   = function_exists( 'get_field' ) ? get_field( 'telephone', $options_post_id ) : null;
 $micetype_links   = function_exists( 'get_field' ) ? get_field( 'micetype_links', $options_post_id ) : [];
 $social_links     = class_exists( '\Landing_Page\Front\Social_Links' ) ? ( new \Landing_Page\Front\Social_Links() )->all() : [];
 

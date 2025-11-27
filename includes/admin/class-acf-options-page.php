@@ -1040,23 +1040,6 @@ class Acf_Options_Page {
 						),
 					),
 					array(
-						'key'               => 'field_6924bd4da3646',
-						'label'             => \__( 'Telephone Link', 'impeka-landing-page' ),
-						'name'              => 'telephone',
-						'aria-label'        => '',
-						'type'              => 'link',
-						'instructions'      => '',
-						'required'          => 0,
-						'conditional_logic' => 0,
-						'wrapper'           => array(
-							'width' => '',
-							'class' => '',
-							'id'    => '',
-						),
-						'return_format'     => 'array',
-						'allow_in_bindings' => 0,
-					),
-					array(
 						'key'               => 'field_6924bd7ea3647',
 						'label'             => \__( 'Micetype Links', 'impeka-landing-page' ),
 						'name'              => 'micetype_links',
