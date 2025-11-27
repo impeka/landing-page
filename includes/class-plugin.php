@@ -73,13 +73,11 @@ class Plugin {
 	 * Include PHP files required for admin functionality.
 	 */
 	private function includes(): void {
-		if ( \is_admin() ) {
-			require_once LANDING_PAGE_PLUGIN_DIR . '/includes/admin/class-settings-page.php';
-			require_once LANDING_PAGE_PLUGIN_DIR . '/includes/admin/class-acf-options-page.php';
-			return;
-		}
-
+		require_once LANDING_PAGE_PLUGIN_DIR . '/includes/admin/class-settings-page.php';
+		require_once LANDING_PAGE_PLUGIN_DIR . '/includes/admin/class-acf-options-page.php';
 		require_once LANDING_PAGE_PLUGIN_DIR . '/includes/frontend/class-social-links.php';
+		require_once LANDING_PAGE_PLUGIN_DIR . '/includes/frontend/class-video-thumbnails.php';
+		require_once LANDING_PAGE_PLUGIN_DIR . '/includes/frontend/class-video-item.php';
 		require_once LANDING_PAGE_PLUGIN_DIR . '/includes/frontend/class-style-stripper.php';
 		require_once LANDING_PAGE_PLUGIN_DIR . '/includes/frontend/class-template-override.php';
 	}

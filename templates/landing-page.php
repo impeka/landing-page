@@ -138,10 +138,12 @@ require LANDING_PAGE_PLUGIN_DIR . '/templates/partials/header-landing.php';
 	<section class="downloads" id="downloads">
 		<div class="downloads__inner">
 			<header class="section-heading section-heading--center">
-				<?php if ( ! empty( $downloads_subtitle ) ) : ?>
-					<p class="section-heading__eyebrow"><?php echo esc_html( $downloads_subtitle ); ?></p>
-				<?php endif; ?>
 				<h2 class="section-heading__title"><?php echo esc_html( $downloads_title ?? '' ); ?></h2>
+
+				<?php if ( ! empty( $downloads_subtitle ) ) : ?>
+					<p class="section-heading__subtitle"><?php echo esc_html( $downloads_subtitle ); ?></p>
+				<?php endif; ?>
+				
 				<?php if ( ! empty( $downloads_lead ) ) : ?>
 					<div class="section-heading__lead"><?php echo wp_kses_post( $downloads_lead ); ?></div>
 				<?php endif; ?>
@@ -241,27 +243,19 @@ require LANDING_PAGE_PLUGIN_DIR . '/templates/partials/header-landing.php';
 
 			<?php if ( ! empty( $videos ) ) : ?>
 				<div class="videos__grid">
-					<?php foreach ( $videos as $video ) : ?>
-						<?php
-						$thumb = $video['thumbnail'] ?? null;
-						$url   = $video['video_url'] ?? '';
-						?>
+					<?php foreach ( $videos as $video_data ) : ?>
+						<?php $video = new \Landing_Page\Front\Video_Item( $video_data ); ?>
 						<article class="video-card">
-							<?php if ( ! empty( $thumb['url'] ) ) : ?>
-								<a class="video-card__thumb" href="<?php echo esc_url( $url ); ?>" target="_blank" rel="noopener noreferrer">
-									<img src="<?php echo esc_url( $thumb['url'] ); ?>" alt="<?php echo esc_attr( $thumb['alt'] ?? '' ); ?>" />
-									<span class="video-card__play" aria-hidden="true">▶</span>
-									<span class="screen-reader-text"><?php echo esc_html( $video['title'] ?? '' ); ?></span>
-								</a>
-							<?php elseif ( $url ) : ?>
-								<a class="video-card__thumb" href="<?php echo esc_url( $url ); ?>" target="_blank" rel="noopener noreferrer">
-									<span class="video-card__play" aria-hidden="true">▶</span>
-									<span class="screen-reader-text"><?php echo esc_html( $video['title'] ?? '' ); ?></span>
-								</a>
-							<?php endif; ?>
-							<?php if ( ! empty( $video['title'] ) ) : ?>
-								<h3 class="video-card__title"><?php echo esc_html( $video['title'] ); ?></h3>
-							<?php endif; ?>
+							<a href="<?php echo esc_url( $video->get_url() ); ?>" target="_blank" rel="noopener noreferrer">
+								<?php if ( $video->get_thumb_url() ) : ?>
+									<div class="video-card__thumb">
+										<img src="<?php echo esc_url( $video->get_thumb_url() ); ?>" alt="<?php echo esc_attr( $video->get_thumb_alt() ); ?>" />
+									</div>
+								<?php endif; ?>
+								<?php if ( $video->get_title() ) : ?>
+									<h3 class="video-card__title"><?php echo esc_html( $video->get_title() ); ?></h3>
+								<?php endif; ?>
+							</a>
 						</article>
 					<?php endforeach; ?>
 				</div>

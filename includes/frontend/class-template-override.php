@@ -15,19 +15,8 @@ class Template_Override {
 	 * Wire up template filtering.
 	 */
 	public function __construct() {
-		\add_action( 'after_setup_theme', [ $this, 'register_nav_location' ] );
 		\add_filter( 'template_include', [ $this, 'maybe_use_plugin_template' ] );
 		\add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_assets' ] );
-	}
-
-	/**
-	 * Registers a dedicated nav location for the landing page header.
-	 */
-	public function register_nav_location(): void {
-		\register_nav_menu(
-			'landing-page',
-			\__( 'Landing Page Header Menu', 'landing-page' )
-		);
 	}
 
 	/**
@@ -67,8 +56,15 @@ class Template_Override {
 				'landing-page-styles',
 				plugins_url( 'assets/css/landing-page.css', LANDING_PAGE_PLUGIN_FILE ),
 				[],
-				(string) \filemtime( $css_path )
+				LANDING_PAGE_PLUGIN_VERSION
 			);
 		}
+
+		\wp_enqueue_style(
+			'fontawesome',
+			'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css',
+			[],
+			'7.0.1'
+		);
 	}
 }
