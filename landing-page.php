@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Landing Page
  * Description: Provides landing page functionality that is theme agnostic.
- * Version: 0.1.0
+ * Version: 0.9
  * Author: Impeka
  * Text Domain: landing-page
  * Domain Path: /languages
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'LANDING_PAGE_PLUGIN_VERSION', '0.1.1' );
+define( 'LANDING_PAGE_PLUGIN_VERSION', '0.9' );
 define( 'LANDING_PAGE_PLUGIN_FILE', __FILE__ );
 define( 'LANDING_PAGE_PLUGIN_DIR', __DIR__ );
 define( 'LANDING_PAGE_OPTION_NAME', 'landing_page_target_page' );
