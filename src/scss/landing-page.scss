@@ -190,18 +190,15 @@ html, body {
 }
 
 .benefit__number {
-    font-family: var(--unnamed-font-family-poppins);
-    font-weight: 300;
-    letter-spacing: var(--unnamed-character-spacing-0);
-    font-size: 58px;
-    color: var(--unnamed-color-6cc24a);
+    color: #6CC24A;
     text-align: left;
-    line-height: 80px;
+    font: normal normal 300 58px/83px Poppins;
+    letter-spacing: 0px;
 }
 
 .benefit__content {
     padding: 12px 0 0;
-    max-width: 437px;
+    max-width: 531px;
 }
 
 .benefit {
@@ -247,7 +244,7 @@ html, body {
     margin: 100px auto 0;
     text-align: left;
     font: normal normal normal 21px/28px Museo;
-    font-weight: lighter;
+    //font-weight: lighter;
     letter-spacing: 0px;
     color: #464851;
     width: 1160px;
@@ -313,7 +310,7 @@ html, body {
 .partners__copy {
     margin: 50px 0 0;
     font: normal normal normal 21px/28px Museo;
-    font-weight: lighter;
+    //font-weight: lighter;
     letter-spacing: 0px;
     color: #464851;
     opacity: 1;
@@ -410,7 +407,7 @@ html, body {
 .where-card__copy {
     margin: 24px 0 0;
     font: normal normal normal 26px/32px Museo;
-    font-weight: lighter;
+    //font-weight: lighter;
     letter-spacing: 0px;
     color: #464851;
 }

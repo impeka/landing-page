@@ -24,6 +24,13 @@ class Style_Stripper {
 	 * Keeps plugin and select core styles intact.
 	 */
 	public function dequeue_theme_styles(): void {
+		$page_id = (int) \get_option( LANDING_PAGE_OPTION_NAME, 0 );
+
+		// Only strip styles when rendering the configured landing page.
+		if ( 0 === $page_id || ! \is_page( $page_id ) ) {
+			return;
+		}
+
 		$styles = \wp_styles();
 
 		if ( empty( $styles->queue ) || ! isset( $styles->registered ) ) {

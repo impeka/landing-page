@@ -1,7 +1,7 @@
-// Museo Sans family.
+// Museo Slab family.
 @font-face {
     font-family: 'Museo';
-    src: url('../fonts/MuseoSans_100.ttf') format('truetype');
+    src: url('../fonts/Museo_Slab_100.otf') format('opentype');
     font-weight: 100;
     font-style: normal;
     font-display: swap;
@@ -9,7 +9,7 @@
 
 @font-face {
     font-family: 'Museo';
-    src: url('../fonts/MuseoSans_100_Italic.ttf') format('truetype');
+    src: url('../fonts/Museo_Slab_100italic.otf') format('opentype');
     font-weight: 100;
     font-style: italic;
     font-display: swap;
@@ -17,7 +17,7 @@
 
 @font-face {
     font-family: 'Museo';
-    src: url('../fonts/MuseoSans_300.ttf') format('truetype');
+    src: url('../fonts/Museo_Slab_300.otf') format('opentype');
     font-weight: 300;
     font-style: normal;
     font-display: swap;
@@ -25,7 +25,7 @@
 
 @font-face {
     font-family: 'Museo';
-    src: url('../fonts/MuseoSans_300_Italic.ttf') format('truetype');
+    src: url('../fonts/Museo_Slab_300italic.otf') format('opentype');
     font-weight: 300;
     font-style: italic;
     font-display: swap;
@@ -33,7 +33,7 @@
 
 @font-face {
     font-family: 'Museo';
-    src: url('../fonts/MuseoSans_500.ttf') format('truetype');
+    src: url('../fonts/Museo_Slab_500.otf') format('opentype');
     font-weight: 500;
     font-style: normal;
     font-display: swap;
@@ -41,7 +41,7 @@
 
 @font-face {
     font-family: 'Museo';
-    src: url('../fonts/MuseoSans_500_Italic.ttf') format('truetype');
+    src: url('../fonts/Museo_Slab_500italic.otf') format('opentype');
     font-weight: 500;
     font-style: italic;
     font-display: swap;
@@ -49,7 +49,7 @@
 
 @font-face {
     font-family: 'Museo';
-    src: url('../fonts/MuseoSans_700.ttf') format('truetype');
+    src: url('../fonts/Museo_Slab_700.otf') format('opentype');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -57,7 +57,7 @@
 
 @font-face {
     font-family: 'Museo';
-    src: url('../fonts/MuseoSans_700_Italic.ttf') format('truetype');
+    src: url('../fonts/Museo_Slab_700italic.otf') format('opentype');
     font-weight: 700;
     font-style: italic;
     font-display: swap;
@@ -65,7 +65,7 @@
 
 @font-face {
     font-family: 'Museo';
-    src: url('../fonts/MuseoSans_900.ttf') format('truetype');
+    src: url('../fonts/Museo_Slab_900.otf') format('opentype');
     font-weight: 900;
     font-style: normal;
     font-display: swap;
@@ -73,8 +73,24 @@
 
 @font-face {
     font-family: 'Museo';
-    src: url('../fonts/MuseoSans_900_Italic.ttf') format('truetype');
+    src: url('../fonts/Museo_Slab_900italic.otf') format('opentype');
     font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Museo';
+    src: url('../fonts/Museo_Slab_1000.otf') format('opentype');
+    font-weight: 1000;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Museo';
+    src: url('../fonts/Museo_Slab_1000italic.otf') format('opentype');
+    font-weight: 1000;
     font-style: italic;
     font-display: swap;
 }
