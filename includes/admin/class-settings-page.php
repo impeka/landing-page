@@ -147,6 +147,11 @@ class Settings_Page {
 			return $states;
 		}
 
+		$translated_page_id = (int) \apply_filters( 'wpml_object_id', $landing_page_id, 'page' );
+		if ( 0 !== $translated_page_id ) {
+			$landing_page_id = $translated_page_id;
+		}
+
 		if ( (int) $post->ID !== $landing_page_id ) {
 			return $states;
 		}
@@ -166,6 +171,11 @@ class Settings_Page {
 	 */
 	public function add_landing_page_row_action( array $actions, \WP_Post $post ): array {
 		$landing_page_id = (int) \get_option( self::OPTION_NAME, 0 );
+
+		$translated_page_id = (int) \apply_filters( 'wpml_object_id', $landing_page_id, 'page' );
+		if ( 0 !== $translated_page_id ) {
+			$landing_page_id = $translated_page_id;
+		}
 
 		if ( 0 === $landing_page_id || (int) $post->ID !== $landing_page_id || ! \current_user_can( 'manage_options' ) ) {
 			return $actions;

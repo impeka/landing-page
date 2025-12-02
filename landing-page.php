@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Landing Page
  * Description: Provides landing page functionality that is theme agnostic.
- * Version: 0.9.3
+ * Version: 0.9.4
  * Author: Impeka
  * Text Domain: landing-page
  * Domain Path: /languages

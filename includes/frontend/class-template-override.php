@@ -33,6 +33,11 @@ class Template_Override {
 			return $template;
 		}
 
+		$translated_page_id = (int) \apply_filters( 'wpml_object_id', $page_id, 'page' );
+		if ( 0 !== $translated_page_id ) {
+			$page_id = $translated_page_id;
+		}
+
 		if ( ! \is_page( $page_id ) ) {
 			return $template;
 		}
