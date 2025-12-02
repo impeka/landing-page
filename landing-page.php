@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'LANDING_PAGE_PLUGIN_VERSION', '0.9.3' );
+define( 'LANDING_PAGE_PLUGIN_VERSION', '0.9.4' );
 define( 'LANDING_PAGE_PLUGIN_FILE', __FILE__ );
 define( 'LANDING_PAGE_PLUGIN_DIR', __DIR__ );
 define( 'LANDING_PAGE_OPTION_NAME', 'landing_page_target_page' );
