@@ -582,8 +582,8 @@ html, body {
     display: grid; 
     grid-auto-rows: auto; 
     grid-template-columns: 1fr 1fr; 
-    grid-template-rows: auto; 
-    gap: 21px 85px; 
+    grid-template-rows: auto;  
+    gap: 21px 30px;
     grid-template-areas: 
         ". .";
 
