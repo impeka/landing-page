@@ -47,15 +47,10 @@ class Plugin {
 	 */
 	private function __construct() {
 		\add_action( 'plugins_loaded', [ $this, 'load_textdomain' ] );
+		\add_action( 'admin_notices', [ $this, 'maybe_render_acf_notice' ] );
 		$this->includes();
-
-		if ( \is_admin() ) {
-			$this->boot_admin();
-			\add_action( 'admin_notices', [ $this, 'maybe_render_acf_notice' ] );
-			return;
-		}
-
 		$this->boot_frontend();
+		$this->boot_admin();
 	}
 
 	/**
