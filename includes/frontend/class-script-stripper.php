@@ -1,6 +1,6 @@
 <?php
 /**
- * Front-end helper to strip theme CSS, keeping plugin/core styles.
+ * Front-end helper to strip theme scripts.
  *
  * @package Landing_Page
  */
@@ -8,22 +8,22 @@
 namespace Landing_Page\Front;
 
 /**
- * Removes theme-enqueued styles so the landing page can control its own CSS.
+ * Removes theme-enqueued scripts so the landing page can control its JS.
  */
-class Style_Stripper {
+class Script_Stripper {
 	/**
 	 * Hook into enqueue pipeline.
 	 */
 	public function __construct() {
-		\add_action( 'wp_enqueue_scripts', [ $this, 'dequeue_theme_styles' ], 999 );
+		\add_action( 'wp_enqueue_scripts', [ $this, 'dequeue_theme_scripts' ], 999 );
 	}
 
 	/**
-	 * Dequeue and deregister styles that originate from the theme.
+	 * Dequeue and deregister scripts that originate from the theme.
 	 *
-	 * Keeps plugin and select core styles intact.
+	 * Keeps plugin and core scripts intact.
 	 */
-	public function dequeue_theme_styles(): void {
+	public function dequeue_theme_scripts(): void {
 		$page_id = (int) \get_option( LANDING_PAGE_OPTION_NAME, 0 );
 
 		$translated_page_id = (int) \apply_filters( 'wpml_object_id', $page_id, 'page' );
@@ -31,46 +31,44 @@ class Style_Stripper {
 			$page_id = $translated_page_id;
 		}
 
-		// Only strip styles when rendering the configured landing page.
+		// Only strip scripts when rendering the configured landing page.
 		if ( 0 === $page_id || ! \is_page( $page_id ) ) {
 			return;
 		}
 
-		$mode = \get_option( LANDING_PAGE_STRIP_CSS_MODE_OPTION, 'none' );
+		$mode = \get_option( LANDING_PAGE_STRIP_JS_MODE_OPTION, 'none' );
 
 		if ( 'none' === $mode ) {
 			return;
 		}
 
-		$handles = $this->parse_handles( \get_option( LANDING_PAGE_STRIP_CSS_HANDLES_OPTION, '' ) );
+		$handles = $this->parse_handles( \get_option( LANDING_PAGE_STRIP_JS_HANDLES_OPTION, '' ) );
 
-		$styles = \wp_styles();
+		$scripts = \wp_scripts();
 
-		if ( empty( $styles->queue ) || ! isset( $styles->registered ) ) {
+		if ( empty( $scripts->queue ) || ! isset( $scripts->registered ) ) {
 			return;
 		}
 
-		$plugins_base     = \trailingslashit( \dirname( \plugins_url( '/', LANDING_PAGE_PLUGIN_FILE ) ) );
-		$mu_plugins_base  = defined( 'WPMU_PLUGIN_URL' ) ? \trailingslashit( WPMU_PLUGIN_URL ) : '';
-		$stylesheet_dir   = \trailingslashit( \get_stylesheet_directory_uri() );
-		$template_dir     = \trailingslashit( \get_template_directory_uri() );
-		$core_allowlist   = [ 'wp-block-library', 'dashicons' ];
+		$plugins_base    = \trailingslashit( \dirname( \plugins_url( '/', LANDING_PAGE_PLUGIN_FILE ) ) );
+		$mu_plugins_base = defined( 'WPMU_PLUGIN_URL' ) ? \trailingslashit( WPMU_PLUGIN_URL ) : '';
+		$stylesheet_dir  = \trailingslashit( \get_stylesheet_directory_uri() );
+		$template_dir    = \trailingslashit( \get_template_directory_uri() );
 
-		foreach ( $styles->queue as $handle ) {
-			if ( empty( $styles->registered[ $handle ] ) ) {
+		foreach ( $scripts->queue as $handle ) {
+			if ( empty( $scripts->registered[ $handle ] ) ) {
 				continue;
 			}
 
-			$src = (string) $styles->registered[ $handle ]->src;
+			$src = (string) $scripts->registered[ $handle ]->src;
 
 			$is_plugin = ( $plugins_base && false !== \strpos( $src, $plugins_base ) )
 				|| ( $mu_plugins_base && false !== \strpos( $src, $mu_plugins_base ) );
-			$is_core  = \in_array( $handle, $core_allowlist, true );
 			$is_theme = ( $stylesheet_dir && false !== \strpos( $src, $stylesheet_dir ) )
 				|| ( $template_dir && false !== \strpos( $src, $template_dir ) );
 
-			// Only dequeue theme-origin styles; leave plugin/core intact.
-			if ( ! $is_theme || $is_plugin || $is_core ) {
+			// Only dequeue theme-origin scripts; leave plugin/core intact.
+			if ( ! $is_theme || $is_plugin ) {
 				continue;
 			}
 
@@ -86,8 +84,8 @@ class Style_Stripper {
 				continue;
 			}
 
-			\wp_dequeue_style( $handle );
-			\wp_deregister_style( $handle );
+			\wp_dequeue_script( $handle );
+			\wp_deregister_script( $handle );
 		}
 	}
 

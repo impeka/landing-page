@@ -58,6 +58,50 @@ class Settings_Page {
 			]
 		);
 
+		\register_setting(
+			$this->page_slug,
+			LANDING_PAGE_STRIP_CSS_MODE_OPTION,
+			[
+				'type'              => 'string',
+				'sanitize_callback' => [ $this, 'sanitize_strip_mode' ],
+				'description'       => \__( 'Landing page CSS stripping mode.', 'landing-page' ),
+				'default'           => 'none',
+			]
+		);
+
+		\register_setting(
+			$this->page_slug,
+			LANDING_PAGE_STRIP_CSS_HANDLES_OPTION,
+			[
+				'type'              => 'string',
+				'sanitize_callback' => [ $this, 'sanitize_handles' ],
+				'description'       => \__( 'CSS handles list for stripping or exceptions.', 'landing-page' ),
+				'default'           => '',
+			]
+		);
+
+		\register_setting(
+			$this->page_slug,
+			LANDING_PAGE_STRIP_JS_MODE_OPTION,
+			[
+				'type'              => 'string',
+				'sanitize_callback' => [ $this, 'sanitize_strip_mode' ],
+				'description'       => \__( 'Landing page JS stripping mode.', 'landing-page' ),
+				'default'           => 'none',
+			]
+		);
+
+		\register_setting(
+			$this->page_slug,
+			LANDING_PAGE_STRIP_JS_HANDLES_OPTION,
+			[
+				'type'              => 'string',
+				'sanitize_callback' => [ $this, 'sanitize_handles' ],
+				'description'       => \__( 'JS handles list for stripping or exceptions.', 'landing-page' ),
+				'default'           => '',
+			]
+		);
+
 		\add_settings_section(
 			'landing_page_section',
 			\__( 'Configuration', 'landing-page' ),
@@ -71,6 +115,22 @@ class Settings_Page {
 			'landing_page_page_selector',
 			\__( 'Landing Page', 'landing-page' ),
 			[ $this, 'render_page_selector' ],
+			$this->page_slug,
+			'landing_page_section'
+		);
+
+		\add_settings_field(
+			'landing_page_css_stripping',
+			\__( 'CSS Stripping', 'landing-page' ),
+			[ $this, 'render_css_strip_field' ],
+			$this->page_slug,
+			'landing_page_section'
+		);
+
+		\add_settings_field(
+			'landing_page_js_stripping',
+			\__( 'JS Stripping', 'landing-page' ),
+			[ $this, 'render_js_strip_field' ],
 			$this->page_slug,
 			'landing_page_section'
 		);
@@ -94,6 +154,45 @@ class Settings_Page {
 	}
 
 	/**
+	 * Sanitize strip mode string.
+	 *
+	 * @param mixed $value Raw value.
+	 *
+	 * @return string
+	 */
+	public function sanitize_strip_mode( $value ): string {
+		$allowed = [ 'none', 'all', 'selected' ];
+		$value   = is_string( $value ) ? strtolower( trim( $value ) ) : '';
+
+		return \in_array( $value, $allowed, true ) ? $value : 'none';
+	}
+
+	/**
+	 * Sanitize comma-separated handles.
+	 *
+	 * @param mixed $value Raw value.
+	 *
+	 * @return string
+	 */
+	public function sanitize_handles( $value ): string {
+		if ( ! is_string( $value ) ) {
+			return '';
+		}
+
+		$parts = array_filter(
+			array_map(
+				static function ( string $handle ): string {
+					$handle = \preg_replace( '/[^a-z0-9_-]/i', '', $handle );
+					return trim( (string) $handle );
+				},
+				array_map( 'trim', explode( ',', $value ) )
+			)
+		);
+
+		return implode( ',', $parts );
+	}
+
+	/**
 	 * Output the dropdown field.
 	 */
 	public function render_page_selector(): void {
@@ -105,6 +204,58 @@ class Settings_Page {
 				'option_none_value' => 0,
 			]
 		);
+	}
+
+	/**
+	 * Render CSS stripping control.
+	 */
+	public function render_css_strip_field(): void {
+		$mode    = \get_option( LANDING_PAGE_STRIP_CSS_MODE_OPTION, 'none' );
+		$handles = \get_option( LANDING_PAGE_STRIP_CSS_HANDLES_OPTION, '' );
+		?>
+		<select name="<?php echo \esc_attr( LANDING_PAGE_STRIP_CSS_MODE_OPTION ); ?>">
+			<option value="none" <?php \selected( $mode, 'none' ); ?>><?php \esc_html_e( 'Do not strip CSS', 'landing-page' ); ?></option>
+			<option value="all" <?php \selected( $mode, 'all' ); ?>><?php \esc_html_e( 'Strip all theme CSS (allow exceptions below)', 'landing-page' ); ?></option>
+			<option value="selected" <?php \selected( $mode, 'selected' ); ?>><?php \esc_html_e( 'Strip only selected theme CSS handles', 'landing-page' ); ?></option>
+		</select>
+		<p>
+			<label for="landing-page-css-handles">
+				<?php \esc_html_e( 'CSS handles (comma separated). When stripping all, this list is kept. When stripping selected, only these handles are removed.', 'landing-page' ); ?>
+			</label>
+		</p>
+		<textarea
+			type="text"
+			id="landing-page-css-handles"
+			name="<?php echo \esc_attr( LANDING_PAGE_STRIP_CSS_HANDLES_OPTION ); ?>"
+			class="regular-text"
+		><?php echo \esc_html( $handles ); ?></textarea>
+		<?php
+	}
+
+	/**
+	 * Render JS stripping control.
+	 */
+	public function render_js_strip_field(): void {
+		$mode    = \get_option( LANDING_PAGE_STRIP_JS_MODE_OPTION, 'none' );
+		$handles = \get_option( LANDING_PAGE_STRIP_JS_HANDLES_OPTION, '' );
+		?>
+		<select name="<?php echo \esc_attr( LANDING_PAGE_STRIP_JS_MODE_OPTION ); ?>">
+			<option value="none" <?php \selected( $mode, 'none' ); ?>><?php \esc_html_e( 'Do not strip JS', 'landing-page' ); ?></option>
+			<option value="all" <?php \selected( $mode, 'all' ); ?>><?php \esc_html_e( 'Strip all theme JS (allow exceptions below)', 'landing-page' ); ?></option>
+			<option value="selected" <?php \selected( $mode, 'selected' ); ?>><?php \esc_html_e( 'Strip only selected theme JS handles', 'landing-page' ); ?></option>
+		</select>
+		<p>
+			<label for="landing-page-js-handles">
+				<?php \esc_html_e( 'JS handles (comma separated). When stripping all, this list is kept. When stripping selected, only these handles are removed.', 'landing-page' ); ?>
+			</label>
+		</p>
+		<textarea
+			type="text"
+			id="landing-page-js-handles"
+			name="<?php echo \esc_attr( LANDING_PAGE_STRIP_JS_HANDLES_OPTION ); ?>"
+			class="regular-text"
+		><?php echo \esc_html( $handles ); ?></textarea>
+		<?php
 	}
 
 	/**
