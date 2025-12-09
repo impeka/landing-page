@@ -84,7 +84,7 @@ require LANDING_PAGE_PLUGIN_DIR . '/templates/partials/header-landing.php';
 		</div>
 		<?php if( ! empty( $video ) ): ?>
 			<div class="hero__background-video">
-				<video class="video-frame" autoplay loop>
+				<video class="video-frame" autoplay muted playsinline loop>
 					<source src="<?php echo $video['url']; ?>" type="video/mp4" />
 				</video>
 			</div>
